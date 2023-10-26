@@ -1,0 +1,906 @@
+package fn;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+class Usuario implements Serializable {
+    String nombre;
+    String apellido;
+    String correo;
+    String contraseña;
+    int rol;
+    boolean habilitado;
+
+    public Usuario() {
+    }
+
+    public Usuario(String nombre, String apellido, String correo, String contraseña, int rol) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.correo = correo;
+        this.contraseña = contraseña;
+        this.rol = rol;
+        this.habilitado = true;
+    }
+}
+class Votantes implements Serializable{
+String nombre;
+ String apellido;
+String cui;
+ String sexo;
+ String fecha;
+String address;
+ String departamento;
+ String muni;
+ String pais;
+boolean habilitado;
+
+public Votantes() {
+    }
+    public Votantes(String nombre, String apellido, String cui, String sexo, String fecha, String address, String departamento, String muni, String pais, boolean habilitado) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.cui = cui;
+        this.sexo = sexo;
+        this.fecha = fecha;
+        this.address = address;
+        this.departamento = departamento;
+        this.muni = muni;
+        this.pais = pais;
+        this.habilitado = habilitado;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getCui() {
+        return cui;
+    }
+
+    public void setCui(String cui) {
+        this.cui = cui;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
+
+    public String getMuni() {
+        return muni;
+    }
+
+    public void setMuni(String muni) {
+        this.muni = muni;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+}
+       
+class Election {
+    private String title;
+    private String description;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+    private List<Candidate> candidates;
+
+    public Election(String title, String description, LocalDateTime startTime, LocalDateTime endTime, List<Candidate> candidates) {
+        this.title = title;
+        this.description = description;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.candidates = candidates;
+    }
+
+
+    private static class Elections {
+
+        public Elections() {
+        }
+    }
+}
+  
+
+class Candidate {
+    private String code;
+    private String name;
+    private String education;
+    private String experience;
+
+    public Candidate(String code, String name, String education, String experience) {
+        this.code = code;
+        this.name = name;
+        this.education = education;
+        this.experience = experience;
+    }
+
+    public Candidate() {
+    }
+    
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEducation() {
+        return education;
+    }
+
+    public void setEducation(String education) {
+        this.education = education;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    // Getters y setters
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+
+    public Candidate(String name, String experience) {
+        this.name = name;
+        this.experience = experience;
+    }
+
+    @Override
+    public String toString() {
+        return "Candidato #" + code + ": " + name + "\nEducación: " + education + "\nExperiencia: " + experience;
+    }
+}
+
+class Candidato {
+    String nombre;
+    int votos;
+
+    public Candidato(String nombre) {
+        this.nombre = nombre;
+        this.votos = 0;
+    }
+}
+
+// Clase para representar un voto
+class Voto {
+    String candidato;
+    String sexo;
+    String ubicacionGeografica; // Puede ser país, departamento, municipio, etc.
+
+    public Voto(String candidato, String sexo, String ubicacionGeografica) {
+        this.candidato = candidato;
+        this.sexo = sexo;
+        this.ubicacionGeografica = ubicacionGeografica;
+        
+    }
+
+    public String getCandidato() {
+        return candidato;
+    }
+
+    public void setCandidato(String candidato) {
+        this.candidato = candidato;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getUbicacionGeografica() {
+        return ubicacionGeografica;
+    }
+
+    public void setUbicacionGeografica(String ubicacionGeografica) {
+        this.ubicacionGeografica = ubicacionGeografica;
+    }
+
+    public Voto() {
+    }
+}
+
+public class FN {
+    private static Usuario administrador;
+    private static ArrayList<Usuario> usuarios = new ArrayList<>();
+     private static final ArrayList<Votantes> Votantes = new ArrayList<>();
+        private static Object elections;
+
+private static final String[] votantesAutorizados = {"votante1@gmail.com", "votante2@gmail.com"};
+private static final String[] contrasenas = {"contrasena1", "contrasena2"};
+private static final Date fechaInicioEleccion = new Date(2023, 10, 20); // Fecha de inicio de la elección
+private static final Date fechaFinEleccion = new Date(2023, 10, 30);          
+        
+    public static void main(String[] args) throws ClassNotFoundException, IOException {
+        Scanner scanner = new Scanner(System.in);
+
+        // Pedir contraseña al usuario administrador si es la primera vez que se utiliza el programa
+        if (administrador == null) {
+       
+            
+            String archivo = "Contrasena.txt";
+            FileInputStream fileIn = null;
+            try {
+                fileIn = new FileInputStream(archivo);
+            } catch (FileNotFoundException ex) {
+                FileOutputStream fileOut = null;
+                try {
+                    System.out.println("Bienvenido al programa. Por favor, cree una contrasena para el usuario administrador:");
+                    String contraseñaAdmin = scanner.nextLine();
+                    administrador = new Usuario("admin", "admin", "admin@example.com", contraseñaAdmin, 1);
+                    fileOut = new FileOutputStream(archivo);
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(administrador);
+                    //Logger.getLogger(FN.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (FileNotFoundException ex1) {
+                    Logger.getLogger(FN.class.getName()).log(Level.SEVERE, null, ex1);
+                } finally {
+                    try {
+                        fileOut.close();
+                    } catch (IOException ex1) {
+                        Logger.getLogger(FN.class.getName()).log(Level.SEVERE, null, ex1);
+                    }
+                }
+                
+            }
+            
+                    }
+int primera;
+do {
+    
+ // Mostrar opciones al usuario
+            System.out.println("Menu de opciones:");
+            System.out.println("1. Registrar nuevo usuario");
+            System.out.println("2. Registro de votantes");
+            System.out.println("3. Administracion de elecciones");
+            System.out.println("4. Acceso de votantes");
+            System.out.println("5. Conteo de votos");
+            System.out.print("Seleccione una opcion: ");
+            System.out.println();
+            System.out.println();
+            primera = scanner.nextInt();
+
+            switch (primera) {
+                case 1 -> registraUsuarios(scanner);
+                case 2 -> registroVotantes(scanner);
+                case 3 -> administradorElecciones(scanner);
+                case 4 -> accessoVotante(scanner);
+                case 5 -> conteoVotos(scanner);
+                default -> System.out.println("Opcion no valida. Intente de nuevo.");
+            }
+        } while (primera != 5);
+    }
+   
+    private static void registraUsuarios(Scanner scanner) {
+            // Mostrar opciones al usuario
+            int opcion;
+do {
+            System.out.println("Menu de opciones:");
+            System.out.println("1. Registrar nuevo usuario");
+            System.out.println("2. Editar usuario");
+            System.out.println("3. Deshabilitar usuario");
+            System.out.println("4. Modificar contrasena");
+            System.out.println("5. Salir");
+            System.out.print("Seleccione una opcion: ");
+            opcion = scanner.nextInt();
+
+            switch (opcion) {
+                case 1 -> registrarUsuario(scanner);
+                case 2 -> editarUsuario(scanner);
+                case 3 -> deshabilitarUsuario(scanner);
+                case 4 -> modificarContraseña(scanner);
+                case 5 -> System.out.println("Saliendo del programa.");
+                default -> System.out.println("Opcion no valida. Intente de nuevo.");
+            }
+} while (opcion != 5);
+    }
+    
+
+static void registrarUsuario(Scanner scanner) {
+        System.out.print("Ingrese el nombre del usuario: ");
+        String nombre = scanner.next();
+        System.out.print("Ingrese el apellido del usuario: ");
+        String apellido = scanner.next();
+        System.out.print("Ingrese el correo electronico del usuario: ");
+        String correo = scanner.next();
+        System.out.print("Ingrese la contraseña del usuario: ");
+        String contraseña = scanner.next();
+        System.out.print("Ingrese el rol del usuario (1-Administrador, 2-Registrador, 3-Votante, 4-Auditor): ");
+        int rol = scanner.nextInt();
+
+        Usuario nuevoUsuario = new Usuario(nombre, apellido, correo, contraseña, rol);
+        usuarios.add(nuevoUsuario);
+
+        System.out.println("Usuario registrado exitosamente.");
+    }
+
+    private static void editarUsuario(Scanner scanner) {
+        System.out.print("Ingrese el correo electronico del usuario a editar: ");
+        String correoBusqueda = scanner.next();
+
+        Usuario usuarioEncontrado = buscarUsuarioPorCorreo(correoBusqueda);
+
+        if (usuarioEncontrado == null) {
+            System.out.println("No se encontro un usuario con ese correo electronico.");
+        } else {
+            // Mostrar los datos actuales del usuario
+            System.out.println("Datos actuales del usuario:");
+            System.out.println("Nombre: " + usuarioEncontrado.nombre);
+            System.out.println("Apellido: " + usuarioEncontrado.apellido);
+            System.out.println("Contrasena: " + usuarioEncontrado.contraseña);
+            System.out.println("Rol: " + usuarioEncontrado.rol);
+
+            // Solicitar los nuevos datos del usuario
+            System.out.print("Ingrese el nuevo nombre del usuario: ");
+            usuarioEncontrado.nombre = scanner.next();
+            System.out.print("Ingrese el nuevo apellido del usuario: ");
+            usuarioEncontrado.apellido = scanner.next();
+            System.out.print("Ingrese la nueva contraseña del usuario: ");
+            usuarioEncontrado.contraseña = scanner.next();
+            System.out.print("Ingrese el nuevo rol del usuario (1-Administrador, 2-Registrador, 3-Votante, 4-Auditor): ");
+            usuarioEncontrado.rol = scanner.nextInt();
+            System.out.println("Usuario actualizado exitosamente.");
+        }
+    }
+
+    private static void deshabilitarUsuario(Scanner scanner) {
+        System.out.print("Ingrese el correo electrónico del usuario a deshabilitar: ");
+        String correoBusqueda = scanner.next();
+
+        Usuario usuarioEncontrado = buscarUsuarioPorCorreo(correoBusqueda);
+
+        if (usuarioEncontrado == null) {
+            System.out.println("No se encontro un usuario con ese correo electronico.");
+        } else {
+            usuarioEncontrado.habilitado = false;
+            System.out.println("Usuario deshabilitado exitosamente.");
+        }
+    }
+
+    private static void modificarContraseña(Scanner scanner) {
+        System.out.print("Ingrese el correo electronico del usuario para modificar la contrasena: ");
+        String correoBusqueda = scanner.next();
+
+        Usuario usuarioEncontrado = buscarUsuarioPorCorreo(correoBusqueda);
+
+        if (usuarioEncontrado == null) {
+            System.out.println("No se encontro un usuario con ese correo electronico.");
+        } else {
+            System.out.print("Ingrese la nueva contrasena: ");
+            usuarioEncontrado.contraseña = scanner.next();
+
+            System.out.println("Contraseña modificada exitosamente.");
+        }
+    }
+
+    private static Usuario buscarUsuarioPorCorreo(String correo) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.correo.equals(correo) && usuario.habilitado) {
+                return usuario;
+            }
+        }
+        return null;
+
+        
+    }
+     private static void registroVotantes (Scanner scanner) {
+          int opcion;
+do {
+            System.out.println("Menu de opciones:");
+            System.out.println("1. Registrar nuevo votante");
+            System.out.println("2. Editar información del votante");
+            System.out.println("3. Dar de baja votante");
+            System.out.print("Seleccione una opcion: ");
+            opcion = scanner.nextInt();
+
+            switch (opcion) {
+                case 1 -> registrarVotante(scanner);
+                case 2 -> editarVotante(scanner);
+                case 3 -> removeVotante(scanner);
+                case 4 -> System.out.println("Saliendo del programa.");
+                default -> System.out.println("Opcion no valida. Intente de nuevo.");
+            }
+} while (opcion != 5);
+    }
+         
+         
+static void registrarVotante(Scanner scanner)  {
+       
+    System.out.println("Registrar nuevo votante");
+    System.out.println("Ingrese su nombre completo");
+    String nombre = scanner.next();
+    System.out.println("Ingrese su apellido completo");
+    String apellido = scanner.next();
+    System.out.println("Ingrese su CUI");
+    String cui = scanner.next();
+    System.out.println("Ingrese su sexo completo");
+    String sexo = scanner.next();
+    System.out.println("Ingrese su fecha de nacimiento completo (dd/MM/yyyy)");
+    String fecha = scanner.next();
+    System.out.println("Ingrese su direccion de residencia completo");
+    String address = scanner.next();
+    System.out.println("Ingrese su departamento de residencia completo");
+    String departamento = scanner.next();
+    System.out.println("Ingrese su munucipio de residencia completo");
+    String muni = scanner.next();
+    System.out.println("Ingrese su pais de residencia completo");
+    String pais = scanner.next();
+    
+      Votantes nuevoVontante = new Votantes (nombre, apellido, cui, sexo, address, departamento, muni, pais);
+        Votantes.add(nuevoVontante);
+        
+SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+try {
+
+Date fechae = sdf.parse(fecha);
+Calendar fechaActual = Calendar.getInstance();
+Calendar calNacimiento = Calendar.getInstance();
+calNacimiento.setTime(fechae);
+
+int edad = fechaActual.get(Calendar.YEAR) - calNacimiento.get(Calendar.YEAR);
+
+ if (fechaActual.get(Calendar.MONTH) < calNacimiento.get(Calendar.MONTH) ||
+                (fechaActual.get(Calendar.MONTH) == calNacimiento.get(Calendar.MONTH) &&
+                 fechaActual.get(Calendar.DAY_OF_MONTH) < calNacimiento.get(Calendar.DAY_OF_MONTH))) {
+                edad--;
+            }
+      if (edad >= 18) {
+                int longitud = 16;
+                String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        // Crear un generador seguro de números aleatorios
+        SecureRandom random = new SecureRandom();
+
+        // Inicializar un StringBuilder para construir la contraseña
+        StringBuilder contraseña = new StringBuilder();
+
+        // Generar la contraseña aleatoria
+        for (int i = 0; i < longitud; i++) {
+            int indice = random.nextInt(caracteres.length());
+            char caracter = caracteres.charAt(indice);
+            contraseña.append(caracter);
+        }
+
+        // Mostrar la contraseña generada
+        System.out.println("Contrasena generada: " + contraseña.toString());
+    
+            } else {
+                System.out.println("Eres menor de edad no puede votar.");
+            }
+        } catch (ParseException e) {
+            System.out.println("Formato de fecha incorrecto. Use dd/MM/yyyy.");
+        }
+    System.out.println("Votante registrado");
+
+
+    }
+private static void editarVotante(Scanner scanner)  {
+
+System.out.print("Ingrese el CUI del votante a editar");
+    String cuiBusqueda = scanner.next();
+    Votantes cuiEncontrado = buscarVotanteporCui(cuiBusqueda);
+      if (cuiEncontrado == null) {
+            System.out.println("No se encontro un usuario con ese correo electronico.");
+        } else {
+          System.out.println("Se encontro el votante.");
+}
+}
+
+private static void removeVotante(Scanner scanner)  {
+
+        System.out.print("Ingrese el cui del votante a deshabilitar: ");
+        String cuiBusqueda = scanner.next();
+
+       Votantes cuiEncontrado = buscarVotanteporCui(cuiBusqueda);
+
+        if (cuiEncontrado == null) {
+            System.out.println("No se encontro un usuario con ese correo electronico.");
+        } else {
+            cuiEncontrado.habilitado = false;
+            System.out.println("Usuario deshabilitado exitosamente.");
+        }
+    }
+
+ private static Votantes buscarVotanteporCui(String cui) {
+        for (Votantes votante : Votantes) {
+             if (Votantes.cui.equals(cui) && votante.habilitado) {
+                return votante;
+            }
+        }
+        return null;
+ }
+
+      private static void administradorElecciones (Scanner scanner) {
+      
+          while(true) {
+     System.out.println("Menu Elecciones");
+    System.out.println("1. Crear eleccion");
+    System.out.println("2. Editar eleccion");
+    System.out.println("3. Eliminar eleccion"); 
+    System.out.println("4. Registrar candidatos");
+    System.out.println("5. Configurar eleccion");
+    System.out.println("6. Volver");
+
+    int option = scanner.nextInt();
+
+      switch(option) {
+        case 1 -> createElection();
+        case 2 -> editElection();
+        case 3 -> deleteElection();
+        case 4 -> registerCandidate();
+        case 5 -> configureElection();
+        case 6 -> {
+            return;
+                  }
+        default -> System.out.println("Opción inválida");
+      }
+    }
+  }
+
+  static int showElectionMenu() {
+    System.out.println("Menu Elecciones");
+    System.out.println("1. Crear eleccion");
+    System.out.println("2. Editar eleccion");
+    System.out.println("3. Eliminar eleccion"); 
+    System.out.println("4. Registrar candidatos");
+    System.out.println("5. Configurar eleccion");
+    System.out.println("6. Volver");
+
+    int option = scanner.nextInt();
+    return option;
+  }
+
+  static void createElection() {
+System.out.println("Crear nueva eleccion");
+        System.out.println("Crear un nombre para la nueva eleccion");
+        Scanner scanner2 = new Scanner(System.in);
+        String title = scanner2.next();
+        System.out.println("Crear una descripción de la nueva eleccion");
+        String description = scanner2.next();
+        
+        System.out.println("Ingrese la fecha y hora de inicio (YYYY-MM-dd HH:mm:ss):");
+        String startTimeStr = scanner2.next();
+        LocalDateTime startTime = LocalDateTime.parse(startTimeStr);
+
+        System.out.println("Ingrese la fecha y hora de finalizacion (YYYY-MM-dd HH:mm:ss):");
+        String endTimeStr = scanner2.next();
+        LocalDateTime endTime = LocalDateTime.parse(endTimeStr);
+
+        // Crear y guardar elección
+        Election election1 = new Election(title, description, startTime, endTime, new ArrayList<>()); 
+    
+
+        System.out.println("Elección creada");
+    
+        List<Election> election = new ArrayList<>();
+        //Scanner scanner = new Scanner(System.in);
+        election.add(election1);
+        
+    }
+   
+    
+  public static void editElection() {
+  
+  
+  
+  }
+       
+
+    
+  static void deleteElection() {
+   
+}  
+
+  static void registerCandidate() {
+   List<Candidate> candidates = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nGestión de Candidatos");
+            System.out.println("1. Agregar Candidato");
+            System.out.println("2. Modificar Candidato");
+            System.out.println("3. Eliminar Candidato");
+            System.out.println("4. Listar Candidatos");
+            System.out.println("5. Salir");
+            System.out.print("Seleccione una opción: ");
+
+            int option = scanner.nextInt();
+            scanner.nextLine();  // Consumir la nueva línea
+
+            switch (option) {
+                case 1 -> {
+                    System.out.print("Ingrese el código del candidato: ");
+                    String code = scanner.nextLine();
+
+                    System.out.print("Ingrese el nombre del candidato: ");
+                    String name = scanner.nextLine();
+
+                    System.out.print("Ingrese la educación del candidato: ");
+                    String education = scanner.nextLine();
+
+                    System.out.print("Ingrese la experiencia del candidato: ");
+                    String experience = scanner.nextLine();
+
+                    Candidate newCandidate = new Candidate(code, name, education, experience);
+                    candidates.add(newCandidate);
+                    System.out.println("Candidato agregado con éxito.");
+           }
+                case 2 -> {
+                    System.out.print("Ingrese el código del candidato a modificar: ");
+                    String codeToModify = scanner.nextLine();
+                    for (Candidate candidate : candidates) {
+                        if (candidate.getCode().equals(codeToModify)) {
+                            System.out.println("Candidato encontrado. Ingrese los nuevos datos:");
+
+                            System.out.print("Nuevo nombre: ");
+                            candidate.setName(scanner.nextLine());
+
+                            System.out.print("Nueva educación: ");
+                            candidate.setEducation(scanner.nextLine());
+
+                            System.out.print("Nueva experiencia: ");
+                            candidate.setExperience(scanner.nextLine());
+
+                            System.out.println("Candidato modificado con éxito.");
+                            break;
+                        }
+                    }
+           }
+                case 3 -> {
+                    System.out.print("Ingrese el código del candidato a eliminar: ");
+                    String codeToDelete = scanner.nextLine();
+                    candidates.removeIf(candidate -> candidate.getCode().equals(codeToDelete));
+                    System.out.println("Candidato eliminado con éxito.");
+           }
+                case 4 -> {
+                    System.out.println("\nListado de Candidatos:");
+                    for (Candidate candidate : candidates) {
+                        System.out.println(candidate);
+                        System.out.println("--------");
+                    }
+           }
+                case 5 -> {
+                    System.out.println("Saliendo del programa.");
+                    System.exit(0);
+           }
+                default -> System.out.println("Opción no válida. Intente de nuevo.");
+            }
+        }
+    }
+
+  static void configureElection() {
+    //Encontrar elección y asignar candidatos
+ /* System.out.println("Configurar elección");
+    String electionId = scanner.next();
+
+    Election election = findElection(electionId);
+    if(election == null) {
+      System.out.println("Elección no encontrada");
+      return;
+    }
+
+    System.out.println("Candidatos:");
+    for(Candidate c : candidates) {
+      System.out.println(c.name); 
+    }
+
+    System.out.println("Seleccione candidatos:");
+    String candidateIds = scanner.next();
+    String[] ids = candidateIds.split(",");
+
+    for(String id : ids) {
+      Candidate candidate = findCandidate(id);
+      election.candidates.add(candidate);
+    }
+
+    System.out.println("Elección configurada"); */
+  }
+
+      
+      
+       public static void accessoVotante (Scanner scanner) {
+       
+
+ System.out.print("Ingrese su correo electrónico: ");
+        String correoElectronico = scanner.nextLine();
+        System.out.print("Ingrese su contraseña: ");
+        String contrasenaIngresada = scanner.nextLine();
+        
+         if (autenticarVotante(correoElectronico, contrasenaIngresada)) {
+            // Verificación del CUI
+            System.out.print("Ingrese su CUI: ");
+            String cuiIngresado = scanner.nextLine();
+
+            if (verificarCUI(correoElectronico, cuiIngresado)) {
+                // Verificación de la elección
+                Date fechaActual = new Date(); // Fecha actual
+
+                if (verificarEleccionesActivas(fechaActual)) {
+                    System.out.println("Puede emitir su voto.");
+                } else {
+                    System.out.println("La elección no está activa en este momento.");
+                }
+            } else {
+                System.out.println("El CUI ingresado no coincide con el registrado.");
+            }
+        } else {
+            System.out.println("La autenticación ha fallado. Verifique su correo y contraseña.");
+        }
+         
+          scanner.close();
+    }
+     private static boolean verificarCUI(String correoElectronico, String cui) {
+        for (int i = 0; i < Votantes.size(); i++) 
+        
+        {
+           // Usuario usuario = new Usuario();
+            
+            if (Votantes.get(i).nombre.matches(correoElectronico) && Votantes.get(i).cui.matches(cui)) {
+                return true;
+            }
+        }
+        return false;
+    }
+     private static boolean verificarEleccionesActivas(Date fechaActual) {
+        return fechaActual.after(fechaInicioEleccion) && fechaActual.before(fechaFinEleccion);
+    }
+
+       
+   static boolean autenticarVotante(String correoElectronico, String contrasena) {
+        for (int i = 0; i < votantesAutorizados.length; i++) {
+            if (votantesAutorizados[i].equals(correoElectronico) && contrasenas[i].equals(contrasena)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+       
+       
+       
+   private static void conteoVotos (Scanner scanner) {
+
+        List<Candidato> candidatos = new ArrayList<>();
+        candidatos.add(new Candidato("Candidato A"));
+        candidatos.add(new Candidato("Candidato B"));
+        // Agregar más candidatos según sea necesario
+
+        List<Voto> votos = new ArrayList<>();
+        votos.add(new Voto("Candidato A", "M", "Departamento 1"));
+        votos.add(new Voto("Candidato B", "F", "Departamento 2"));
+        // Agregar más votos según sea necesario
+
+        // Aquí puedes realizar los cálculos necesarios para generar los informes
+        generarConteoGeneral(candidatos);
+        generarVotosPorSexo(votos);
+        generarVotosPorUbicacionGeografica(votos);
+        generarReporteMaestro(votos, candidatos);
+    }
+
+    public static void generarConteoGeneral(List<Candidato> candidatos) {
+        // Calcular y mostrar el conteo general de votos
+        for (Candidato candidato : candidatos) {
+            // Calcula el total de votos para cada candidato y el porcentaje correspondiente
+            double porcentaje = (double) candidato.votos / getTotalVotos(candidatos) * 100;
+            System.out.println("Candidato: " + candidato.nombre);
+            System.out.println("Votos: " + candidato.votos);
+            System.out.println("Porcentaje: " + porcentaje + "%");
+        }
+    }
+
+    public static void generarVotosPorSexo(List<Voto> votos) {
+        // Calcular y mostrar los votos por sexo
+        int totalMasculinos = 0;
+        int totalFemeninos = 0;
+        for (Voto voto : votos) {
+            if (voto.sexo.equals("M")) {
+                totalMasculinos++;
+            } else if (voto.sexo.equals("F")) {
+                totalFemeninos++;
+            }
+        }
+        double totalVotos = votos.size();
+        double porcentajeMasculinos = (totalMasculinos / totalVotos) * 100;
+        double porcentajeFemeninos = (totalFemeninos / totalVotos) * 100;
+        System.out.println("Votos emitidos por sexo:");
+        System.out.println("Masculinos: " + totalMasculinos + " (" + porcentajeMasculinos + "%)");
+        System.out.println("Femeninos: " + totalFemeninos + " (" + porcentajeFemeninos + "%)");
+    }
+
+    public static void generarVotosPorUbicacionGeografica(List<Voto> votos) {
+        // Calcular y mostrar los votos por ubicación geográfica
+        // Puedes usar estructuras de datos (por ejemplo, HashMap) para realizar estos cálculos.
+    }
+
+    public static void generarReporteMaestro(List<Voto> votos, List<Candidato> candidatos) {
+        // Generar el reporte maestro permitiendo filtrar los resultados
+        // por país, departamento, municipio, candidatos, sexo, edad, etc.
+        // Implementa la lógica de filtrado y muestra los resultados adecuados.
+    }
+
+    public static int getTotalVotos(List<Candidato> candidatos) {
+        int total = 0;
+        for (Candidato candidato : candidatos) {
+            total += candidato.votos;
+        }
+        return total;
+    }
+}
+
+
+
